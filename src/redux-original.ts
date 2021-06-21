@@ -57,7 +57,7 @@ export const createTodoActionCreator = ({ desc }: {
   };
 };
 
-export const EditTodoActionCreation = ({ id, desc } : {
+export const editTodoActionCreation = ({ id, desc } : {
   id: string, desc: string
 }): EditTodoActionType => {
   return {
@@ -66,21 +66,21 @@ export const EditTodoActionCreation = ({ id, desc } : {
   };
 };
 
-export const ToggleTodoActionCreator = ({ id, isComplete } : { id: string, isComplete: boolean }): ToggleTodoActionType => {
+export const toggleTodoActionCreator = ({ id, isComplete } : { id: string, isComplete: boolean }): ToggleTodoActionType => {
   return {
     type: TOGGLE_TODO,
     payload: { id, isComplete }
   };
 };
 
-export const DeleteTodoActionCreator = ({ id } : { id: string }) : DeleteTodoActionType => {
+export const deleteTodoActionCreator = ({ id } : { id: string }) : DeleteTodoActionType => {
   return {
     type: DELETE_TODO,
     payload: { id }
   };
 };
 
-export const SelectTodoActionCreator = ({ id } : { id: string }) : SelectTodoActionType => {
+export const selectTodoActionCreator = ({ id } : { id: string }) : SelectTodoActionType => {
   return {
     type: SELECT_TODO,
     payload: { id }
