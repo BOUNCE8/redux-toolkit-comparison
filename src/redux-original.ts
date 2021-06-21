@@ -88,7 +88,7 @@ export const selectTodoActionCreator = ({ id } : { id: string }) : SelectTodoAct
 }; 
 // ACTIONS - END
 
-// REDUCERS - START
+
 const initialTodoState: Todo[] = [
   {
     id: uuid(),
@@ -107,6 +107,7 @@ const initialTodoState: Todo[] = [
   }
 ];
 
+// REDUCERS - START
 type TodoActionTypes = CreateTodoActionType | DeleteTodoActionType | ToggleTodoActionType | EditTodoActionType;
 
 const todosReducer = (
