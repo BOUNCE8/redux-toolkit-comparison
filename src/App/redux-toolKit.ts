@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, configureStore, combineReducers, applyMiddleware} from '@reduxjs/toolkit';
 import {v1 as uuid } from "uuid";
-import { boolean, string } from 'yargs';
 
 import { Todo } from "../type";
 
@@ -53,6 +52,46 @@ const todosSlice = createSlice({
         return state = state.splice(removedTodoIndex, 1);
       }
     },
-    
   }
+});
+
+const selectedTodoSlice = createSlice({
+  name: 'selectTodo',
+  initialState: null as string | null,
+  reducers: {
+    select: (state, {payload}: PayloadAction<{id: string}>) => payload.id    
+  }
+});
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {},
+  extraReducers: {
+    [todosSlice.actions.create.type]: state => state + 1,
+    [todosSlice.actions.edit.type]: state => state + 1,
+    [todosSlice.actions.toggle.type]: state => state + 1,
+    [todosSlice.actions.remove.type]: state => state + 1,
+  }
+});
+
+const reducer = combineReducers({
+  todos: todosSlice.reducer,
+  selectTodo: selectedTodoSlice.reducer,
+  counter: counterSlice.reducer,
+})
+
+export const { 
+  create: createTodoActionCreator, 
+  edit: editTodoActionCreation, 
+  toggle: toggleTodoActionCreator, 
+  remove: deleteTodoActionCreator,
+} = todosSlice.actions;
+
+export const {
+  select: selectTodoActionCreator
+} = selectedTodoSlice.actions;
+
+export default configureStore({
+  reducer,
 })
