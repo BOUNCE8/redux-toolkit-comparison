@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction, configureStore, combineReducers, applyMiddleware} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, configureStore, combineReducers, getDefaultMiddleware} from '@reduxjs/toolkit';
 import {v1 as uuid } from "uuid";
+import logger from 'redux-logger';
 
-import { Todo } from "../type";
+import { Todo } from "./type";
 
 const initialTodoState: Todo[] = [
   {
@@ -44,11 +45,11 @@ const todosSlice = createSlice({
     },
     toggle: (state, {payload}: PayloadAction<{id: string; isComplete: boolean}>) => {
       const toggledTodo = state.find(todo => todo.id === payload.id);
-      if (toggledTodo) toggledTodo.isComplete = toggledTodo.isComplete;
+      if (toggledTodo) toggledTodo.isComplete = !toggledTodo.isComplete;
     },
     remove: (state, {payload}: PayloadAction<{id: string;}>) => {
       const removedTodoIndex = state.findIndex(todo => todo.id === payload.id);
-      if (removedTodoIndex != -1) {
+      if (removedTodoIndex !== -1) {
         return state = state.splice(removedTodoIndex, 1);
       }
     },
@@ -56,7 +57,7 @@ const todosSlice = createSlice({
 });
 
 const selectedTodoSlice = createSlice({
-  name: 'selectTodo',
+  name: 'selectedTodo',
   initialState: null as string | null,
   reducers: {
     select: (state, {payload}: PayloadAction<{id: string}>) => payload.id    
@@ -77,13 +78,13 @@ const counterSlice = createSlice({
 
 const reducer = combineReducers({
   todos: todosSlice.reducer,
-  selectTodo: selectedTodoSlice.reducer,
+  selectedTodo: selectedTodoSlice.reducer,
   counter: counterSlice.reducer,
 })
 
 export const { 
   create: createTodoActionCreator, 
-  edit: editTodoActionCreation, 
+  edit: editTodoActionCreator, 
   toggle: toggleTodoActionCreator, 
   remove: deleteTodoActionCreator,
 } = todosSlice.actions;
@@ -92,6 +93,8 @@ export const {
   select: selectTodoActionCreator
 } = selectedTodoSlice.actions;
 
+const middleware = [...getDefaultMiddleware(), logger];
 export default configureStore({
   reducer,
+  middleware 
 })

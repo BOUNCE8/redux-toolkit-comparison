@@ -6,11 +6,23 @@ import React, {
   useState
 } from "react";
 import {useSelector, useDispatch} from 'react-redux';
-import { createTodoActionCreator, 
-  editTodoActionCreation, 
-  deleteTodoActionCreator, 
-  toggleTodoActionCreator, 
-  selectTodoActionCreator } from '../redux-original';
+
+/////////// OG REDUX ACTIONS ///////////////
+// import { 
+//   createTodoActionCreator, 
+//   editTodoActionCreator, 
+//   deleteTodoActionCreator, 
+//   toggleTodoActionCreator, 
+//   selectTodoActionCreator } from '../redux-original';
+
+/////////// NEW REDUX TOOLKIT ACTIONS ///////////////
+import {
+  createTodoActionCreator,
+  editTodoActionCreator,
+  toggleTodoActionCreator,
+  deleteTodoActionCreator,
+  selectTodoActionCreator,
+} from '../redux-tool-kit';
 
 import { State} from "../type";
 import "./App.css";
@@ -51,7 +63,7 @@ const App = function() {
 
   const handleEdit = (): void => {
     if (!selectedTodo) return;
-    dispatch(editTodoActionCreation(selectedTodo))
+    dispatch(editTodoActionCreator(selectedTodo))
 
     setEditTodoInput(selectedTodo.desc);
     setIsEditMode(true);
@@ -69,7 +81,7 @@ const App = function() {
       handleCancelUpdate();
       return;
     }
-    dispatch(editTodoActionCreation({id: selectedTodoId, desc: editTodoInput}));
+    dispatch(editTodoActionCreator({id: selectedTodoId, desc: editTodoInput}));
     setIsEditMode(false);
     setEditTodoInput('');
 

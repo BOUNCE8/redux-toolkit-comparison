@@ -57,7 +57,7 @@ export const createTodoActionCreator = ({ desc }: {
   };
 };
 
-export const editTodoActionCreation = ({ id, desc } : {
+export const editTodoActionCreator = ({ id, desc } : {
   id: string, desc: string
 }): EditTodoActionType => {
   return {
