@@ -24,6 +24,8 @@ import {
   selectTodoActionCreator,
 } from '../redux-tool-kit';
 
+import Counter from '../App/components/counter/Counter'
+
 import { State} from "../type";
 import "./App.css";
 
@@ -31,7 +33,6 @@ const App = function() {
   const dispatch = useDispatch();
   const todos = useSelector((state: State) => state.todos);
   const selectedTodoId = useSelector((state: State) => state.selectedTodo);
-  const editedCount = useSelector((state: State) => state.counter);
 
 
   const [newTodoInput, setNewTodoInput] = useState<string>("");
@@ -108,7 +109,7 @@ const App = function() {
 
   return (
     <div className="App">
-      <div className="App__counter">Todos Updated Count: {editedCount}</div>
+      <Counter />
       <div className="App__header">
         <h1>Todo: Redux vs RTK Edition</h1>
         <form onSubmit={handleCreateNewTodo}>
