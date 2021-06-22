@@ -50,7 +50,7 @@ const todosSlice = createSlice({
     remove: (state, {payload}: PayloadAction<{id: string;}>) => {
       const removedTodoIndex = state.findIndex(todo => todo.id === payload.id);
       if (removedTodoIndex !== -1) {
-        return state = state.splice(removedTodoIndex, 1);
+        state = state.splice(removedTodoIndex, 1);
       }
     },
   }

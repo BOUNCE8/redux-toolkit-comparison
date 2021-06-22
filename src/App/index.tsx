@@ -7,6 +7,8 @@ import React, {
 } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 
+// import AppList from "../components/appList/AppList";
+
 /////////// OG REDUX ACTIONS ///////////////
 // import { 
 //   createTodoActionCreator, 
@@ -24,10 +26,10 @@ import {
   selectTodoActionCreator,
 } from '../redux-tool-kit';
 
-import { State} from "../type";
+import { State } from "../type";
 import "./App.css";
 
-const App = function() {
+export const App = function() {
   const dispatch = useDispatch();
   const todos = useSelector((state: State) => state.todos);
   const selectedTodoId = useSelector((state: State) => state.selectedTodo);
@@ -108,7 +110,7 @@ const App = function() {
 
   return (
     <div className="App">
-      <div className="App__counter">Todos Updated Count: {editedCount}</div>
+      <div className="App__counter"> {editedCount}</div>
       <div className="App__header">
         <h1>Todo: Redux vs RTK Edition</h1>
         <form onSubmit={handleCreateNewTodo}>
